@@ -1,0 +1,164 @@
+---
+import logoImage from '../../assets/img/bengal-logo-web.webp';
+import heroImage from '../../assets/img/hero_img.webp';
+import ourCatsImage from '../../assets/img/our_cats.webp';
+import kittensImage from '../../assets/img/kittens.webp';
+import galleryImage from '../../assets/img/gallery.webp';
+import contactImage from '../../assets/img/contact.webp';
+
+const { deferInitialReveal = false } = Astro.props;
+
+const menuItems = [
+  {
+    label: 'Home',
+    href: '/',
+    image: heroImage.src,
+  },
+  {
+    label: 'Our Cats',
+    href: '/our-cats',
+    image: ourCatsImage.src,
+  },
+  {
+    label: 'Kittens',
+    href: '/available-kittens',
+    image: kittensImage.src,
+  },
+  {
+    label: 'Gallery',
+    href: '/gallery',
+    image: galleryImage.src,
+  },
+  {
+    label: 'Contact',
+    href: '/contact',
+    image: contactImage.src,
+  },
+];
+---
+
+<nav
+  id="floatingNav"
+  class:list={[
+    'pointer-events-auto fixed left-1/2 top-4 z-[1001] w-[calc(100%-2rem)] max-w-[1400px] -translate-x-1/2 opacity-100 transition-all duration-700 ease-out md:top-5 md:w-[calc(100%-5rem)]',
+    deferInitialReveal && 'hero-nav-prehide',
+  ]}
+>
+  <div class="relative overflow-hidden rounded-[50px] bg-white/70 px-5 py-3 shadow-soft backdrop-blur-xl md:px-9 md:py-4">
+    <div
+      class="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(212,175,55,0.03)_0%,rgba(255,255,255,0.05)_100%)]"
+    ></div>
+
+    <div class="relative z-10 flex items-center justify-between gap-6">
+      <a href="/" class="flex items-center gap-3">
+        <img
+          src={logoImage.src}
+          alt="Luxury Rosettes"
+          class="h-12 w-auto sm:h-14 lg:h-[70px]"
+        />
+        <span class="hidden font-body text-[0.72rem] font-medium uppercase tracking-[2.3px] text-dark/80 xs:inline md:text-[0.85rem] md:tracking-[2.5px]">
+          Luxury Rosettes
+        </span>
+      </a>
+
+      <button
+        id="menuBtn"
+        type="button"
+        class="group relative z-10 flex items-center gap-3 rounded-[30px] bg-transparent px-4 py-2 outline-none transition-all duration-300 hover:text-gold"
+        aria-label="Open menu"
+      >
+        <span class="menu-hover-fill absolute inset-0 rounded-[30px] bg-gold/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+        <span class="relative font-body text-[0.65rem] font-medium uppercase tracking-[2px] text-dark transition-colors duration-300 group-hover:text-gold md:text-[0.7rem] md:tracking-[3px]">
+          Menu
+        </span>
+        <span class="relative flex h-[14px] w-5 flex-col justify-between">
+          <span class="menu-line menu-line-top block h-[2px] w-full bg-gold transition-all duration-300"></span>
+          <span class="menu-line menu-line-bottom ml-auto block h-[2px] w-3/5 bg-gold transition-all duration-300 group-hover:w-full"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="absolute -bottom-px left-[30px] right-[30px] h-px bg-gold-line opacity-60"></div>
+</nav>
+
+<div
+  id="fullscreenMenu"
+  class="fullscreen-menu invisible fixed inset-0 z-[999] flex h-screen flex-col bg-white opacity-0 transition-all duration-700 ease-out lg:flex-row"
+>
+  <div class="menu-left flex min-h-screen w-full flex-col items-center justify-start px-6 pb-12 pt-25 text-center sm:px-8 sm:pt-27.5 lg:max-w-[44%] lg:items-start lg:justify-start lg:px-16 lg:pb-10 lg:pt-40 lg:text-left xl:px-24">
+    <div class="mt-6 flex w-full flex-col items-center gap-1 sm:mt-8 lg:mt-0 lg:items-start">
+      {menuItems.map((item, index) => (
+        <div class="menu-link relative overflow-x-visible overflow-y-hidden py-1" data-image={index}>
+          <a
+            href={item.href}
+            class="menu-link-anchor inline-block font-heading text-[2.6rem] font-normal leading-[1.2] tracking-[-0.01em] text-dark transition-colors duration-500 hover:text-gold sm:text-[3rem] lg:text-[3.2rem]"
+          >
+            {item.label}
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <div class="menu-footer mt-10 w-full border-t border-dark/10 pt-6 lg:mt-12 lg:pt-8">
+      <div class="hidden gap-16 lg:flex">
+        <div>
+          <h4 class="mb-2 font-body text-[0.75rem] font-semibold uppercase tracking-[1.5px] text-dark">Visit Us</h4>
+          <p class="font-body text-[0.9rem] leading-relaxed text-dark/60">By appointment only<br />United Kingdom</p>
+        </div>
+        <div>
+          <h4 class="mb-2 font-body text-[0.75rem] font-semibold uppercase tracking-[1.5px] text-dark">Contact</h4>
+          <p class="font-body text-[0.9rem] leading-relaxed text-dark/60">info@luxuryrosettes.co.uk<br />Reserve Your Kitten</p>
+        </div>
+      </div>
+
+      <div class="mt-2 flex items-center justify-center gap-10 lg:mt-6 lg:justify-start lg:gap-8">
+        <a href="#" class="font-body text-[0.9rem] text-dark/60 transition-colors duration-300 hover:text-gold">Facebook</a>
+        <a href="#" class="font-body text-[0.9rem] text-dark/60 transition-colors duration-300 hover:text-gold">Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-right relative hidden flex-1 overflow-hidden lg:block">
+    {menuItems.map((item, index) => (
+      <div
+        class:list={[
+          'menu-bg-image absolute inset-0 bg-cover bg-center',
+          index === 0 && 'active',
+        ]}
+        style={`background-image: url('${item.image}')`}
+      ></div>
+    ))}
+
+    <div class="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0)_100%)]"></div>
+    <div class="pointer-events-none absolute right-[-100px] top-1/2 z-[2] h-[300px] w-[300px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.08)_0%,transparent_70%)]"></div>
+  </div>
+</div>
+
+<script>
+  import { initLuxuryNav } from '../../scripts/nav';
+
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLuxuryNav);
+  } else {
+    initLuxuryNav();
+  }
+</script>
+
+
+
+<style>
+  #floatingNav.hero-nav-prehide {
+    opacity: 0;
+  }
+</style>
+
+<noscript>
+  <style>
+    #floatingNav.hero-nav-prehide {
+      opacity: 1 !important;
+      filter: none !important;
+    }
+  </style>
+</noscript>

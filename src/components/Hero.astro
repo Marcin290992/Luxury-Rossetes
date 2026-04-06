@@ -1,0 +1,179 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/img/hero_img.webp';
+---
+
+<section class="hero-intro relative min-h-svh overflow-hidden bg-dark pt-24 sm:pt-28 md:pt-32">
+	<div class="absolute inset-0">
+		<div class="hero-ken-burns h-full w-full" style="opacity:0;visibility:hidden">
+			<Image
+				src={heroImage}
+				alt="Luxury Bengal cat"
+				class="h-full w-full object-cover object-[55%_center] md:object-center"
+				widths={[640, 768, 1024, 1280, 1536, 1920, 2560]}
+				sizes="100vw"
+				loading="eager"
+				format="webp"
+			/>
+		</div>
+		<div class="hero-overlay absolute inset-0 bg-[linear-gradient(180deg,rgba(26,26,26,0.45)_0%,rgba(26,26,26,0.25)_35%,rgba(26,26,26,0.65)_100%)]"></div>
+		<div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,12,24,0.72)_0%,rgba(8,12,24,0.45)_33%,rgba(8,12,24,0.18)_58%,rgba(8,12,24,0.06)_74%,rgba(8,12,24,0)_100%)]"></div>
+	</div>
+
+	<div class="relative z-10 flex min-h-[calc(100svh-6rem)] w-full items-end justify-center px-4 pb-4 sm:min-h-[calc(100svh-7rem)] sm:px-6 sm:pb-8 md:justify-start md:px-10 md:pb-20 lg:px-14 lg:pb-24 xl:px-16">
+		<div class="max-w-72 text-center sm:max-w-120 md:max-w-152 md:text-left lg:max-w-176 xl:max-w-3xl">
+			<div class="hero-content translate-y-[10%] md:translate-y-0" style="opacity:0;visibility:hidden">
+				<h1 class="hero-title font-heading text-[2.05rem] font-normal leading-[1.14] tracking-[-0.012em] text-cream sm:text-[2.5rem] md:text-[3rem] md:leading-[1.08] lg:text-[3.5rem] xl:text-[3.75rem] 2xl:text-[4.5rem]" style="opacity:0;visibility:hidden">
+					<span class="block">The Elegance of the</span>
+					<span class="mt-1 block sm:mt-2">Wild at Home</span>
+				</h1>
+				<span class="hero-line mx-auto mt-4 block h-px w-28 bg-(--gold-line) opacity-90 sm:mt-5 sm:w-36 md:mx-0 lg:w-44" style="opacity:0;visibility:hidden"></span>
+			</div>
+
+			<a
+				href="/available-kittens"
+				style="opacity:0;visibility:hidden"
+				class="hero-cta group relative mt-4 inline-flex items-center justify-center overflow-hidden rounded-md border border-gold/40 bg-[linear-gradient(135deg,#d4af37_0%,#e8c96f_45%,#c59a2f_100%)] px-8 py-3.5 font-body text-[0.74rem] font-semibold uppercase tracking-[3px] text-white shadow-gold transition-all duration-500 ease-out hover:-translate-y-0.5 hover:shadow-gold-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-dark sm:mt-5 sm:px-10 sm:py-4 md:mt-8"
+			>
+				<span class="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,transparent_20%,rgba(255,255,255,0.35)_50%,transparent_80%)] opacity-0 transition-all duration-700 group-hover:translate-x-[120%] group-hover:opacity-100"></span>
+				<span class="relative z-10">Explore Kittens</span>
+			</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero-title,
+	.hero-line,
+	.hero-cta,
+	.hero-content {
+		will-change: transform, opacity;
+	}
+</style>
+
+<noscript>
+	<style>
+		.hero-content,
+		.hero-ken-burns,
+		.hero-title,
+		.hero-line,
+		.hero-cta {
+			opacity: 1 !important;
+			visibility: visible !important;
+			transform: none !important;
+			filter: none !important;
+		}
+	</style>
+</noscript>
+
+<script>
+	import gsap from 'gsap';
+
+	type Killable = { kill(): void };
+	let heroCleanup: (() => void) | null = null;
+
+	function initHeroAnimation(): void {
+		if (heroCleanup) {
+			heroCleanup();
+			heroCleanup = null;
+		}
+
+		const heroImage = document.querySelector<HTMLElement>('.hero-ken-burns');
+		const heroTitle = document.querySelector<HTMLElement>('.hero-title');
+		const heroLine = document.querySelector<HTMLElement>('.hero-line');
+		const heroCta = document.querySelector<HTMLElement>('.hero-cta');
+		const heroContent = document.querySelector<HTMLElement>('.hero-content');
+		const heroOverlay = document.querySelector<HTMLElement>('.hero-overlay');
+		const floatingNav = document.getElementById('floatingNav');
+
+		if (!heroImage || !heroTitle || !heroOverlay || !heroCta || !heroLine || !heroContent) return;
+
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const isMd = window.matchMedia('(min-width: 768px)').matches;
+		const INTRO_KEY = 'luxuryrosettes:hero-intro-played:session';
+
+		let hasSeenIntro = false;
+		try {
+			hasSeenIntro = sessionStorage.getItem(INTRO_KEY) === '1';
+		} catch {
+			/* storage blocked */
+		}
+
+		const motion = isMd
+			? { from: { scale: 1.03, xPercent: 0, yPercent: 0 }, to: { scale: 1.18, xPercent: -1.2, yPercent: -0.85 } }
+			: { from: { scale: 1.02, xPercent: 0, yPercent: 0 }, to: { scale: 1.2, xPercent: -1.5, yPercent: -1.05 } };
+
+		const tweens: Killable[] = [];
+
+		if (!prefersReducedMotion && !hasSeenIntro) {
+			/* ---- first-visit intro ---- */
+			/* start from total darkness */
+			gsap.set(heroImage, { autoAlpha: 0, scale: motion.from.scale + 0.05, xPercent: 0, yPercent: 0, transformOrigin: isMd ? '50% 50%' : '55% 50%' });
+			gsap.set(heroOverlay, { opacity: 0 });
+			gsap.set(heroContent, { autoAlpha: 0 });
+			gsap.set(heroTitle, { autoAlpha: 0, y: 20 });
+			gsap.set(heroLine, { autoAlpha: 0, scaleX: 0, transformOrigin: isMd ? 'left center' : 'center center' });
+			gsap.set(heroCta, { autoAlpha: 0, y: 14 });
+			if (floatingNav) gsap.set(floatingNav, { autoAlpha: 0 });
+
+			const tl = gsap.timeline({ defaults: { overwrite: 'auto' } });
+			tweens.push(tl);
+
+			/* 1. cat emerges from darkness */
+			tl.to(heroImage, { autoAlpha: 1, scale: motion.from.scale, duration: 1.6, ease: 'power2.inOut' }, 0)
+				.to(heroOverlay, { opacity: 1, duration: 1.4, ease: 'power2.out' }, 0.4)
+
+			/* 2. nav fades in */
+			if (floatingNav) {
+				tl.to(floatingNav, { autoAlpha: 1, duration: 0.5, ease: 'power3.out' }, 1.1);
+			}
+
+			/* 3. title fades up */
+			tl.to(heroContent, { autoAlpha: 1, duration: 0.01, ease: 'none' }, 1.3)
+				.to(heroTitle, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 1.3)
+
+			/* 4. gold line */
+				.to(heroLine, { autoAlpha: 1, scaleX: 1, duration: 0.5, ease: 'power2.out' }, 1.75)
+
+			/* 5. CTA */
+				.to(heroCta, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 1.85);
+
+			tl.eventCallback('onComplete', () => {
+				try { sessionStorage.setItem(INTRO_KEY, '1'); } catch { /* */ }
+				if (floatingNav) floatingNav.classList.remove('hero-nav-prehide');
+				tweens.push(gsap.to(heroImage, { ...motion.to, duration: 32, ease: 'sine.inOut', repeat: -1, yoyo: true }));
+			});
+		} else {
+			/* ---- return-visit / reduced-motion ---- */
+			gsap.set(heroImage, { autoAlpha: 1, ...motion.from, transformOrigin: isMd ? '50% 50%' : '55% 50%' });
+			gsap.set(heroTitle, { autoAlpha: 1, y: 0 });
+			gsap.set(heroLine, { autoAlpha: 1, scaleX: 1 });
+			gsap.set(heroCta, { autoAlpha: 1, y: 0 });
+			gsap.set(heroContent, { autoAlpha: 1 });
+			gsap.set(heroOverlay, { opacity: 1 });
+
+			if (floatingNav) {
+				gsap.set(floatingNav, { autoAlpha: 1 });
+				floatingNav.classList.remove('hero-nav-prehide');
+			}
+
+			if (!prefersReducedMotion) {
+				tweens.push(gsap.to(heroImage, { ...motion.to, duration: 32, ease: 'sine.inOut', repeat: -1, yoyo: true }));
+			}
+		}
+
+		heroCleanup = () => {
+			tweens.forEach((t) => t.kill());
+			tweens.length = 0;
+		};
+	}
+
+	document.addEventListener('astro:page-load', initHeroAnimation);
+
+	document.addEventListener('astro:before-swap', () => {
+		if (heroCleanup) {
+			heroCleanup();
+			heroCleanup = null;
+		}
+	});
+</script>

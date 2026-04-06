@@ -1,0 +1,284 @@
+---
+import { Image } from 'astro:assets';
+import kitaImage from '../../assets/img/Kita.webp';
+import dracoImage from '../../assets/img/Draco.webp';
+import awardsImage from '../../assets/img/awards.webp';
+---
+
+<div class="bg-cream">
+
+  <!-- ── KITA ─────────────────────────────────────────────── -->
+  <section class="oc-section mx-auto max-w-screen-2xl overflow-hidden px-6 py-20 sm:px-10 sm:py-24 lg:px-14 lg:py-28 2xl:px-16 2xl:py-32">
+    <div class="flex flex-col-reverse items-center gap-14 lg:flex-row lg:gap-20 xl:gap-28">
+
+      <div class="w-full lg:w-1/2">
+        <div class="oc-image overflow-hidden rounded-xs shadow-[0_8px_48px_rgba(0,0,0,0.13)]">
+          <Image
+            src={kitaImage}
+            alt="Kita — Bengal Queen"
+            class="w-full object-cover"
+            widths={[640, 960, 1280]}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            format="webp"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="w-full lg:w-1/2">
+        <p class="oc-kicker font-body text-[0.65rem] font-semibold uppercase tracking-[3px] text-gold-dark/80">The Queen</p>
+        <h2 class="oc-heading mt-3 font-heading text-[2rem] font-medium tracking-tight text-dark sm:text-[2.6rem] lg:text-[2.8rem] 2xl:text-[3.4rem]">Kita</h2>
+        <span class="oc-line mb-8 mt-4 block h-px w-20 bg-(--gold-line)"></span>
+        <div class="oc-text space-y-5 font-body text-[0.9rem] leading-[1.82] tracking-[0.003em] text-text-primary sm:text-[0.95rem] 2xl:text-[1.05rem] 2xl:leading-[1.85]">
+          <p>Kita is our stunning golden queen, radiating elegance, intelligence, and gentle charm. Her warm, golden coat with rich, beautifully contrasted rosettes and a silky glittered texture makes her truly eye-catching. She has a refined wild expression balanced with a soft, affectionate nature, giving her both beauty and soul.</p>
+          <p>Kita moves with grace and confidence, always observing her surroundings with curiosity and keen awareness. She loves to be close to her family, offering affectionate head rubs, soft purrs, and warm companionship. Calm, loving, and deeply bonded with her humans, she brings harmony and warmth to our home.</p>
+          <p>As a mother, she is exceptional — nurturing, patient, and attentive, teaching her kittens both confidence and gentle manners. Her kittens inherit her stunning looks, sweet disposition, and balanced temperament, making them wonderful companions and show quality prospects.</p>
+          <p>Kita comes from carefully selected lines known for health, temperament, and excellent type. With her expressive eyes, elegant structure, and affectionate personality, she represents everything we strive for in our breeding program — beauty, intelligence, and a loving, family-friendly temperament.</p>
+          <p class="font-medium italic text-dark/75">A true queen in every sense — graceful, kind, and absolutely captivating.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Gold separator -->
+  <div class="mx-auto h-px w-24 bg-(--gold-line) opacity-35"></div>
+
+  <!-- ── DRACO ────────────────────────────────────────────── -->
+  <section class="oc-section mx-auto max-w-screen-2xl overflow-hidden px-6 py-20 sm:px-10 sm:py-24 lg:px-14 lg:py-28 2xl:px-16 2xl:py-32">
+    <div class="flex flex-col-reverse items-center gap-14 lg:flex-row-reverse lg:gap-20 xl:gap-28">
+
+      <div class="w-full lg:w-1/2">
+        <div class="oc-image overflow-hidden rounded-xs shadow-[0_8px_48px_rgba(0,0,0,0.13)]">
+          <Image
+            src={dracoImage}
+            alt="Draco — Bengal King"
+            class="w-full object-cover"
+            widths={[640, 960, 1280]}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            format="webp"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="w-full lg:w-1/2">
+        <p class="oc-kicker font-body text-[0.65rem] font-semibold uppercase tracking-[3px] text-gold-dark/80">The King</p>
+        <h2 class="oc-heading mt-3 font-heading text-[2rem] font-medium tracking-tight text-dark sm:text-[2.6rem] lg:text-[2.8rem] 2xl:text-[3.4rem]">Draco</h2>
+        <span class="oc-line mb-8 mt-4 block h-px w-20 bg-(--gold-line)"></span>
+        <div class="oc-text space-y-5 font-body text-[0.9rem] leading-[1.82] tracking-[0.003em] text-text-primary sm:text-[0.95rem] 2xl:text-[1.05rem] 2xl:leading-[1.85]">
+          <p>Draco is an outstanding silver Bengal male with a breathtaking, high-contrast pattern and strong wild expression. His muscular body, sleek coat, and intense eyes give him a majestic presence — he looks like a miniature leopard in the home. His coat shimmers beautifully in the light, and his rosettes are bold and perfectly defined, showcasing exceptional breed quality.</p>
+          <p>Beyond his impressive looks, Draco has a confident and affectionate personality. He loves attention, enjoys interacting with people, and proudly shows off his elegance and power. Despite his strong appearance, he is gentle and loving, showing the balanced temperament we value in our breeding program.</p>
+          <p>Draco comes from excellent Champion bloodlines and has proven himself in the show ring. He consistently passes on his striking features, structure, and confident, social temperament to his kittens. All health tests are clear, ensuring that he produces healthy, strong, and stunning offspring.</p>
+          <p class="font-medium italic text-dark/75">A true example of the Bengal breed — elegant, athletic, intelligent, and affectionate — Draco is a king in every way.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Gold separator -->
+  <div class="mx-auto h-px w-24 bg-(--gold-line) opacity-35"></div>
+
+  <!-- ── WHERE BEAUTY MEETS HEART ──────────────────────────── -->
+  <section class="oc-section oc-section--philosophy mx-auto max-w-screen-2xl overflow-hidden px-6 py-20 sm:px-10 sm:py-24 lg:px-14 lg:py-28 2xl:px-16 2xl:py-32">
+
+    <div class="oc-philosophy-header mb-14 text-center sm:mb-16 lg:mb-20">
+      <p class="oc-kicker font-body text-[0.65rem] font-semibold uppercase tracking-[3px] text-gold-dark/80">Our Philosophy</p>
+      <h2 class="oc-heading mt-3 font-heading text-[2rem] font-medium tracking-tight text-dark sm:text-[2.6rem] lg:text-[2.8rem] 2xl:text-[3.4rem]">Where Beauty Meets Heart</h2>
+      <span class="oc-line mx-auto mt-4 block h-px w-20 bg-(--gold-line)"></span>
+    </div>
+
+    <div class="flex flex-col items-center gap-14 lg:flex-row lg:gap-20 xl:gap-28">
+
+      <div class="w-full lg:w-1/2">
+        <div class="oc-text space-y-5 font-body text-[0.9rem] leading-[1.82] tracking-[0.003em] text-text-primary sm:text-[0.95rem] 2xl:text-[1.05rem] 2xl:leading-[1.85]">
+          <p>At Luxury Rosettes Bengals, our journey begins and ends with love, dedication and passion for the breed.</p>
+          <p>Our Bengals are more than pedigree and titles — they are family members, companions and intelligent souls who bring joy, laughter and warmth into our everyday life.</p>
+          <p>We are proud to share our carefully selected breeding cats, raised in a loving home and social environment, surrounded by care and attention from day one. Their health, temperament and exceptional type reflect the standards we believe in and work tirelessly to preserve.</p>
+          <p>Every kitten born here carries not only world-class bloodlines, but also the values at the heart of our cattery — trust, integrity, and a deep respect for this extraordinary breed.</p>
+          <p class="font-medium italic text-dark/75">Thank you for visiting our world. We look forward to helping you meet your future best friend — a kitten raised with passion, responsibility, and love.</p>
+        </div>
+      </div>
+
+      <div class="w-full lg:w-1/2">
+        <div class="oc-image overflow-hidden rounded-xs shadow-[0_8px_48px_rgba(0,0,0,0.13)]">
+          <Image
+            src={awardsImage}
+            alt="Luxury Rosettes — Awards & Achievements"
+            class="w-full object-cover"
+            widths={[640, 960, 1280]}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            format="webp"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!-- ── CTA ───────────────────────────────────────────────── -->
+<section class="oc-cta bg-dark px-6 py-20 text-center sm:px-10 sm:py-24 lg:py-28 2xl:py-32">
+  <p class="oc-cta-kicker font-body text-[0.65rem] font-semibold uppercase tracking-[3px] text-gold-dark/80">Ready to Meet Your Bengal?</p>
+  <h2 class="oc-cta-heading mx-auto mt-4 max-w-2xl font-heading text-[1.8rem] font-medium tracking-tight text-cream sm:text-[2.4rem] lg:text-[2.8rem] 2xl:text-[3.4rem]">Your perfect Bengal companion awaits.</h2>
+  <span class="oc-cta-line mx-auto mt-5 block h-px w-20 bg-(--gold-line) opacity-60"></span>
+  <div class="oc-cta-btn mt-10">
+    <a
+      href="https://luxuryrosettes.co.uk/contact/"
+      class="group relative inline-flex items-center justify-center overflow-hidden rounded-md border border-gold/40 bg-[linear-gradient(135deg,#d4af37_0%,#e8c96f_45%,#c59a2f_100%)] px-8 py-3.5 font-body text-[0.72rem] font-semibold uppercase tracking-[3px] text-white shadow-gold transition-all duration-500 ease-out hover:-translate-y-0.5 hover:shadow-gold-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-dark"
+    >
+      <span class="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,transparent_20%,rgba(255,255,255,0.35)_50%,transparent_80%)] opacity-0 transition-all duration-700 group-hover:translate-x-[120%] group-hover:opacity-100"></span>
+      <span class="relative z-10">Contact Us Today</span>
+    </a>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  let ocCleanup: (() => void) | undefined;
+
+  function revealSection(
+    section: HTMLElement,
+    prefersReducedMotion: boolean,
+    collected: gsap.core.Timeline[],
+  ) {
+    const kicker  = section.querySelector<HTMLElement>('.oc-kicker');
+    const heading = section.querySelector<HTMLElement>('.oc-heading');
+    const line    = section.querySelector<HTMLElement>('.oc-line');
+    const text    = section.querySelector<HTMLElement>('.oc-text');
+    const image   = section.querySelector<HTMLElement>('.oc-image');
+
+    if (!kicker || !heading || !line || !text || !image) return;
+
+    if (prefersReducedMotion) {
+      gsap.set([kicker, heading, line, text, image], { clearProps: 'all' });
+      return;
+    }
+
+    gsap.set([kicker, heading, line, text], { opacity: 0, y: 28 });
+    gsap.set(image, { opacity: 0, scale: 1.05 });
+
+    /* ── Reveal animation ─────────────────────────────────── */
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top center',
+        end: 'center 20%',
+        scrub: 0.9,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    tl.to(kicker,  { opacity: 1, y: 0, ease: 'power2.out' }, 0)
+      .to(heading, { opacity: 1, y: 0, ease: 'power2.out' }, 0.08)
+      .to(line,    { opacity: 1, y: 0, ease: 'power2.out' }, 0.14)
+      .to(text,    { opacity: 1, y: 0, ease: 'power2.out' }, 0.22)
+      .to(image,   { opacity: 1, scale: 1, ease: 'power2.out' }, 0.06);
+
+    collected.push(tl);
+
+    /* ── Parallax — image slower, text faster ─────────────── */
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const imgShift = isMobile ? 30 : 60;
+    const textShift = isMobile ? 20 : 40;
+
+    const textCol = (kicker.closest('.lg\\:w-1\\/2') || kicker.parentElement) as HTMLElement | null;
+
+    const pxImg = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    });
+    pxImg.fromTo(image, { yPercent: 0, y: imgShift }, { y: -imgShift, ease: 'none' });
+    collected.push(pxImg);
+
+    if (textCol) {
+      const pxText = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
+      pxText.fromTo(textCol, { y: -textShift }, { y: textShift, ease: 'none' });
+      collected.push(pxText);
+    }
+  }
+
+  function initOurCats() {
+    if (ocCleanup) { ocCleanup(); ocCleanup = undefined; }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const timelines: gsap.core.Timeline[] = [];
+
+    // ── Cat profile sections (Kita & Draco) ──────────────────
+    document.querySelectorAll<HTMLElement>('.oc-section:not(.oc-section--philosophy)').forEach((s) => {
+      revealSection(s, prefersReducedMotion, timelines);
+    });
+
+    // ── Philosophy section ────────────────────────────────────
+    const philosophy = document.querySelector<HTMLElement>('.oc-section--philosophy');
+    if (philosophy) revealSection(philosophy, prefersReducedMotion, timelines);
+
+    // ── CTA section ───────────────────────────────────────────
+    const cta = document.querySelector<HTMLElement>('.oc-cta');
+    if (cta && !prefersReducedMotion) {
+      const ctaKicker  = cta.querySelector<HTMLElement>('.oc-cta-kicker');
+      const ctaHeading = cta.querySelector<HTMLElement>('.oc-cta-heading');
+      const ctaLine    = cta.querySelector<HTMLElement>('.oc-cta-line');
+      const ctaBtn     = cta.querySelector<HTMLElement>('.oc-cta-btn');
+
+      if (ctaKicker && ctaHeading && ctaLine && ctaBtn) {
+        gsap.set([ctaKicker, ctaHeading, ctaLine, ctaBtn], { opacity: 0, y: 24 });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: cta,
+            start: 'top bottom',
+            end: 'center 55%',
+            scrub: 0.9,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        tl.to(ctaKicker,  { opacity: 1, y: 0, ease: 'power2.out' }, 0)
+          .to(ctaHeading, { opacity: 1, y: 0, ease: 'power2.out' }, 0.1)
+          .to(ctaLine,    { opacity: 1, y: 0, ease: 'power2.out' }, 0.18)
+          .to(ctaBtn,     { opacity: 1, y: 0, ease: 'power2.out' }, 0.28);
+
+        timelines.push(tl);
+      }
+    }
+
+    ocCleanup = () => {
+      timelines.forEach((tl) => {
+        tl.scrollTrigger?.kill();
+        tl.kill();
+      });
+    };
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    if (document.querySelector('.oc-section')) {
+      requestAnimationFrame(() => requestAnimationFrame(initOurCats));
+    }
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    ocCleanup?.();
+    ocCleanup = undefined;
+  });
+</script>

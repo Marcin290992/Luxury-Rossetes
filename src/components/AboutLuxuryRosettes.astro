@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import aboutImage from '../assets/img/about.webp';
+import logoImage from '../assets/img/bengal-logo-web.webp';
+---
+
+<section class="relative overflow-hidden bg-cream px-4 py-14 sm:px-8 sm:py-18 lg:px-16 lg:py-24">
+  <div class="mx-auto max-w-[1440px]">
+    <header class="mb-10 text-center sm:mb-12 lg:mb-14">
+      <h2 class="font-heading text-[2.4rem] font-medium tracking-tight text-dark sm:text-[3rem] lg:text-[3.6rem]">
+        About Luxury Rosettes
+      </h2>
+      <span class="mx-auto mt-4 block h-px w-24 bg-(--gold-line) sm:w-28"></span>
+    </header>
+
+    <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:gap-4 xl:gap-10">
+      <figure class="relative overflow-hidden rounded-[8px] bg-dark/5 shadow-soft">
+        <Image
+          src={aboutImage}
+          alt="Luxury Rosettes founder with Bengal cat and awards"
+          class="h-full min-h-[320px] w-full object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.02] sm:min-h-[420px] lg:min-h-[520px]"
+          widths={[768, 1024, 1280, 1600]}
+          sizes="(max-width: 1024px) 100vw, 58vw"
+          loading="lazy"
+          format="webp"
+        />
+      </figure>
+
+      <div class="flex h-full flex-col justify-between gap-8 lg:pl-2 xl:pl-4">
+        <div class="max-w-[56rem] text-left font-body text-[1.02rem] leading-[1.75] text-text-primary sm:text-[1.08rem] lg:text-[1.15rem] lg:leading-[1.85]">
+          <p>
+            Our journey with Bengal cats began 15 years ago with a very special gift from my husband. What started as a single present soon became a lifelong passion. We quickly realized that these extraordinary cats, with their wild elegance and affectionate personalities, were more than pets they were family.
+          </p>
+
+          <p class="mt-6 sm:mt-8">
+            At Luxury Rosettes, we don’t just breed Bengals we live with them, love them, and admire their stunning beauty every single day. Their playful spirit, intelligence, and breathtaking rosettes make them an inseparable part of our home. For us, Bengals are not only companions, but the heart and soul of our family.
+          </p>
+        </div>
+
+        <div class="flex justify-center py-2 lg:justify-center">
+          <Image
+            src={logoImage}
+            alt="Luxury Rosettes Bengal Cattery"
+            class="h-auto w-[220px] opacity-95 sm:w-[260px] lg:w-[300px] xl:w-[340px]"
+            loading="lazy"
+            widths={[220, 260, 300, 340, 420]}
+            sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 340px"
+            format="webp"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,183 @@
+<section class="wb-section relative z-0 min-h-[950svh] bg-cream px-6 py-14 overflow-x-clip sm:min-h-[850svh] sm:px-10 sm:py-18 md:min-h-[800svh] lg:min-h-[850svh] lg:px-14 lg:py-20 2xl:px-16 2xl:py-24">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_24%,rgba(212,175,55,0.08)_0%,transparent_26%),radial-gradient(circle_at_86%_80%,rgba(212,175,55,0.06)_0%,transparent_24%)]"></div>
+
+  <div class="wb-pin mx-auto flex min-h-svh w-full max-w-245 flex-col justify-center">
+      <header class="mb-10 text-center sm:mb-12 lg:mb-6 2xl:mb-14">
+        <p class="font-body text-[0.55rem] font-semibold uppercase tracking-[2.8px] text-gold-dark/80 sm:text-[0.68rem] lg:text-[0.7rem] 2xl:text-[0.72rem]" data-reveal-line>
+          Bengal Excellence
+        </p>
+        <h2 class="mt-3 font-heading text-[1.6rem] font-medium tracking-tight text-dark sm:text-[2.5rem] lg:text-[2rem] 2xl:text-[3.5rem]" data-reveal-line>Why Bengals?</h2>
+        <span class="wb-header-line mx-auto mt-4 block h-px w-24 bg-(--gold-line) sm:w-28" style="transform:scaleX(0);transform-origin:center center"></span>
+      </header>
+
+      <div class="wb-text mx-auto max-w-200 text-center font-body text-[0.88rem] font-normal leading-[1.72] tracking-[0.004em] text-text-primary sm:text-[0.95rem] sm:leading-[1.68] lg:max-w-160 2xl:max-w-200 2xl:text-[1.32rem] 2xl:leading-[1.8]">
+        <p data-reveal-line>
+          Bengal cats are an extraordinary breed that combines the exotic elegance of the wild with the affectionate nature of a domestic companion.
+        </p>
+        <p data-reveal-line>
+          Known for their striking coat patterns, playful energy, and remarkable intelligence, Bengals are unlike any other cat.
+        </p>
+        <p data-reveal-line>
+          Their unique beauty and engaging personalities continue to fascinate cat lovers worldwide, making them a popular choice for families seeking a distinctive and loving companion.
+        </p>
+      </div>
+
+      <div class="mt-4 flex justify-center sm:mt-5 lg:mt-4 2xl:mt-6">
+        <a
+          href="/about-bengals"
+          class="wb-more-cta group pointer-events-none relative inline-flex translate-y-3 items-center justify-center overflow-hidden rounded-md border border-gold/45 bg-[linear-gradient(135deg,#d4af37_0%,#e8c96f_45%,#c59a2f_100%)] px-6 py-2.5 font-body text-[0.6rem] font-semibold uppercase tracking-[2.5px] text-white opacity-0 shadow-gold transition-all duration-500 ease-out hover:-translate-y-0.5 hover:shadow-gold-strong sm:px-8 sm:py-3.5 sm:text-[0.72rem] sm:tracking-[3px]"
+        >
+          <span class="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,transparent_20%,rgba(255,255,255,0.35)_50%,transparent_80%)] opacity-0 transition-all duration-700 group-hover:translate-x-[120%] group-hover:opacity-100"></span>
+          <span class="relative z-10">More</span>
+        </a>
+      </div>
+  </div>
+</section>
+
+<style>
+  .wb-pin {
+    will-change: transform;
+  }
+
+  .wb-char {
+	opacity: 0;
+    will-change: opacity;
+  }
+
+  .wb-header-line {
+    will-change: transform;
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  let wbCleanup: (() => void) | undefined;
+
+  function initWhyBengals() {
+    // Clean previous instance
+    if (wbCleanup) {
+      wbCleanup();
+      wbCleanup = undefined;
+    }
+
+    const section = document.querySelector<HTMLElement>('.wb-section');
+    if (!section) return;
+
+    // Kill any stale trigger
+    const old = ScrollTrigger.getById('wb-reveal');
+    if (old) old.kill(true);
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Per-character split
+    const lines = Array.from(section.querySelectorAll('[data-reveal-line]'));
+    lines.forEach((line) => {
+      const text = (line.textContent ?? '').replace(/\s+/g, ' ').trim();
+      line.textContent = '';
+      Array.from(text).forEach((ch) => {
+        const span = document.createElement('span');
+        span.className = 'wb-char';
+        span.textContent = ch;
+        line.appendChild(span);
+      });
+    });
+
+    const chars = gsap.utils.toArray<HTMLElement>('.wb-char', section);
+    const moreCta = section.querySelector<HTMLElement>('.wb-more-cta');
+    const headerLine = section.querySelector<HTMLElement>('.wb-header-line');
+    const pinTarget = section.querySelector<HTMLElement>('.wb-pin');
+
+    wbCleanup = () => {
+      const t = ScrollTrigger.getById('wb-reveal');
+      if (t) t.kill(true);
+      gsap.killTweensOf(chars);
+      if (moreCta) gsap.killTweensOf(moreCta);
+      if (headerLine) gsap.killTweensOf(headerLine);
+    };
+
+    if (prefersReducedMotion) {
+      gsap.set(chars, { opacity: 1 });
+      if (headerLine) gsap.set(headerLine, { scaleX: 1 });
+      if (moreCta) {
+        gsap.set(moreCta, { autoAlpha: 1, y: 0, pointerEvents: 'auto' });
+      }
+      return;
+    }
+
+    if (chars.length > 0 && pinTarget) {
+      gsap.set(chars, { opacity: 0 });
+      if (moreCta) {
+        gsap.set(moreCta, { autoAlpha: 0, y: 14, pointerEvents: 'none' });
+      }
+
+      const revealTl = gsap.timeline({
+        scrollTrigger: {
+          id: 'wb-reveal',
+          trigger: section,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1.2,
+          pin: pinTarget,
+          pinSpacing: true,
+          anticipatePin: 1.5,
+          refreshPriority: -1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      /* 1. Text chars reveal */
+      revealTl.to(chars, {
+        opacity: 1,
+        stagger: 0.02,
+        ease: 'none',
+      });
+
+      /* 2. Gold header line after header chars */
+      if (headerLine) {
+        const headerCharsCount = Array.from(section.querySelectorAll('header [data-reveal-line] .wb-char')).length;
+        const headerProgress = chars.length > 0 ? headerCharsCount / chars.length : 0;
+        revealTl.to(headerLine, {
+          scaleX: 1,
+          duration: 0.04,
+          ease: 'power2.out',
+        }, headerProgress > 0 ? `${headerProgress * 100}%` : '+=0');
+      }
+
+      /* 3. CTA fades in after all text */
+      if (moreCta) {
+        revealTl.to(moreCta, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.08,
+          ease: 'power2.out',
+          onStart: () => { moreCta.style.pointerEvents = 'auto'; },
+          onReverseComplete: () => { moreCta.style.pointerEvents = 'none'; },
+        });
+      }
+
+      /* 4. Hold — page stays pinned so user sees CTA before scrolling on */
+      revealTl.to({}, { duration: 2 });
+    }
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    if (document.querySelector('.wb-section')) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          initWhyBengals();
+        });
+      });
+    }
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    if (wbCleanup) {
+      wbCleanup();
+      wbCleanup = undefined;
+    }
+  });
+</script>

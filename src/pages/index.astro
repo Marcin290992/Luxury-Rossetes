@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LuxuryNavShell from '../components/navigation/LuxuryNavShell.astro';
+import Hero from '../components/Hero.astro';
+import WhyBengals from '../components/WhyBengals.astro';
+import AboutLuxuryRosettes from '../components/AboutLuxuryRosettes.astro';
+import Awards from '../components/Awards.astro';
+import BengalJourney from '../components/BengalJourney.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Luxury Rosettes">
+	<LuxuryNavShell deferInitialReveal={true} />
+	<Hero />
+	<WhyBengals />
+	<div class="slide-over-wrapper relative z-10 -mt-[100vh] bg-cream shadow-[0_-20px_60px_rgba(0,0,0,0.18)]">
+		<AboutLuxuryRosettes />
+		<Awards />
+		<BengalJourney />
+		<FAQ />
+		<Footer />
+	</div>
+</Layout>

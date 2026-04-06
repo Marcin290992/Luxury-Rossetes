@@ -1,0 +1,450 @@
+---
+import { Image, getImage } from 'astro:assets';
+import ourCatsImage from '../../assets/img/Our_cats_main.webp';
+import ourCatsMobile from '../../assets/img/our_cats_MOBILEwebp.webp';
+import kitaImage from '../../assets/img/Kita.webp';
+import dracoImage from '../../assets/img/Draco.webp';
+
+const mobileImg = await getImage({ src: ourCatsMobile, format: 'webp', widths: [640, 828, 1080] });
+const desktopImg = await getImage({ src: ourCatsImage, format: 'webp', widths: [1024, 1536, 1920] });
+---
+
+<section class="srh" data-split-reveal>
+	<div class="srh__stage">
+
+		<!-- BASE IMAGE — revealed when curtains open -->
+		<div class="srh__base" aria-hidden="true">
+			<picture>
+				<source
+					media="(max-width: 768px)"
+					srcset={mobileImg.srcSet?.attribute || mobileImg.src}
+					type="image/webp"
+				/>
+				<source
+					media="(min-width: 769px)"
+					srcset={desktopImg.srcSet?.attribute || desktopImg.src}
+					type="image/webp"
+				/>
+				<img
+					src={desktopImg.src}
+					alt=""
+					class="srh__base-img"
+					loading="eager"
+					decoding="async"
+				/>
+			</picture>
+			<div class="srh__base-overlay"></div>
+		</div>
+
+		<!-- LEFT CURTAIN — Kita -->
+		<div class="srh__panel srh__panel--left" data-panel-left>
+			<div class="srh__panel-bg">
+				<Image
+					src={kitaImage}
+					alt="Kita"
+					class="srh__panel-img"
+					widths={[640, 1024, 1536, 1920]}
+					sizes="50vw"
+					loading="eager"
+					format="webp"
+				/>
+			</div>
+			<div class="srh__tone srh__tone--warm"></div>
+			<div class="srh__panel-overlay"></div>
+			<span class="srh__label srh__label--left">Kita</span>
+		</div>
+
+		<!-- RIGHT CURTAIN — Draco -->
+		<div class="srh__panel srh__panel--right" data-panel-right>
+			<div class="srh__panel-bg">
+				<Image
+					src={dracoImage}
+					alt="Draco"
+					class="srh__panel-img"
+					widths={[640, 1024, 1536, 1920]}
+					sizes="50vw"
+					loading="eager"
+					format="webp"
+				/>
+			</div>
+			<div class="srh__tone srh__tone--cool"></div>
+			<div class="srh__panel-overlay"></div>
+			<span class="srh__label srh__label--right">Draco</span>
+		</div>
+
+		<!-- GOLD DIVIDER -->
+		<div class="srh__divider" data-divider></div>
+
+		<!-- CENTER TEXT -->
+		<div class="srh__content" data-content>
+			<p class="srh__kicker">The Queen & The King</p>
+			<h1 class="srh__title">Our Cats</h1>
+			<p class="srh__subtitle">Grace and power in perfect balance</p>
+		</div>
+
+	</div>
+</section>
+
+<style>
+	/* ─── SCROLL SPACER ─────────────────────────────────────── */
+	.srh {
+		position: relative;
+		height: 220vh;
+		background: #050505;
+	}
+
+	/* ─── PINNED STAGE ──────────────────────────────────────── */
+	.srh__stage {
+		position: relative;
+		width: 100%;
+		height: 100vh;
+		overflow: hidden;
+	}
+
+	/* ─── BASE IMAGE ────────────────────────────────────────── */
+	.srh__base {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+	}
+
+	/*
+	 * The key fix: target the <img> that Astro renders
+	 * inside the Image component using the class we pass.
+	 * No :global needed — Astro scopes class names but the
+	 * rendered <img> still gets the class attribute.
+	 */
+	.srh__base-img {
+		display: block;
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+	}
+
+	.srh__base-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0.18) 0%,
+			rgba(0, 0, 0, 0.08) 45%,
+			rgba(0, 0, 0, 0.42) 100%
+		);
+	}
+
+	/* ─── CURTAIN PANELS ────────────────────────────────────── */
+	.srh__panel {
+		position: absolute;
+		top: 0;
+		width: 50%;
+		height: 100%;
+		overflow: hidden;
+		will-change: clip-path, transform;
+	}
+
+	.srh__panel--left {
+		left: 0;
+		clip-path: inset(0 0 0 0);
+	}
+
+	.srh__panel--right {
+		right: 0;
+		clip-path: inset(0 0 0 0);
+	}
+
+	.srh__panel-bg {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		transform: scale(1.06);
+		transform-origin: center center;
+	}
+
+	.srh__panel-img {
+		display: block;
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 30%;
+	}
+
+	.srh__tone {
+		position: absolute;
+		inset: 0;
+		mix-blend-mode: multiply;
+		opacity: 0.62;
+	}
+
+	.srh__tone--warm {
+		background: linear-gradient(
+			140deg,
+			rgba(212, 175, 55, 0.44) 0%,
+			rgba(72, 42, 13, 0.65) 100%
+		);
+	}
+
+	.srh__tone--cool {
+		background: linear-gradient(
+			220deg,
+			rgba(125, 140, 180, 0.5) 0%,
+			rgba(28, 38, 56, 0.68) 100%
+		);
+	}
+
+	.srh__panel-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0.12) 0%,
+			rgba(0, 0, 0, 0.08) 50%,
+			rgba(0, 0, 0, 0.46) 100%
+		);
+	}
+
+	/* ─── CAT NAME LABELS ───────────────────────────────────── */
+	.srh__label {
+		position: absolute;
+		bottom: 8%;
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 6vw, 5rem);
+		font-weight: 500;
+		letter-spacing: 0.02em;
+		color: rgba(250, 248, 243, 0.92);
+		text-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+	}
+
+	.srh__label--left  { left:  clamp(1rem, 5vw, 4rem); }
+	.srh__label--right { right: clamp(1rem, 5vw, 4rem); }
+
+	/* ─── GOLD DIVIDER ──────────────────────────────────────── */
+	.srh__divider {
+		position: absolute;
+		left: 50%;
+		top: 0;
+		transform: translateX(-50%);
+		width: 2px;
+		height: 100%;
+		background: linear-gradient(
+			180deg,
+			transparent 0%,
+			rgba(212, 175, 55, 0.95) 20%,
+			rgba(232, 201, 111, 0.95) 80%,
+			transparent 100%
+		);
+		box-shadow: 0 0 22px rgba(212, 175, 55, 0.6);
+		will-change: opacity, transform;
+	}
+
+	/* ─── CENTER CONTENT ────────────────────────────────────── */
+	.srh__content {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		color: #faf8f3;
+		z-index: 5;
+		opacity: 0;
+		visibility: hidden;
+		will-change: transform, opacity;
+		padding: 1rem;
+		width: min(90%, 600px);
+	}
+
+	.srh__kicker {
+		font-family: var(--font-body);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 3px;
+		text-transform: uppercase;
+		margin: 0 0 1rem;
+		color: rgba(232, 201, 111, 0.95);
+	}
+
+	.srh__title {
+		font-family: var(--font-heading);
+		font-size: clamp(2.6rem, 7.5vw, 6.2rem);
+		line-height: 1.05;
+		font-weight: 500;
+		margin: 0;
+		text-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+	}
+
+	.srh__subtitle {
+		margin: 1rem 0 0;
+		font-family: var(--font-body);
+		font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+		letter-spacing: 0.9px;
+		color: rgba(250, 248, 243, 0.88);
+	}
+
+	/* ─── RESPONSIVE ────────────────────────────────────────── */
+
+	/* Tablet landscape */
+	@media (max-width: 1024px) {
+		.srh { height: 195vh; }
+	}
+
+	/* Tablet portrait */
+	@media (max-width: 1024px) and (orientation: portrait) {
+		.srh         { height: 175vh; }
+		.srh__stage  { height: 100vh; }
+	}
+
+	/* Small tablet / large phone */
+	@media (max-width: 900px) {
+		.srh { height: 175vh; }
+
+		.srh__label {
+			font-size: clamp(1.8rem, 8.5vw, 3.4rem);
+			bottom: 9%;
+		}
+	}
+
+	@media (max-width: 900px) and (orientation: portrait) {
+		.srh        { height: 200vh; }
+		.srh__stage { height: 100vh; }
+	}
+
+	/* Mobile */
+	@media (max-width: 640px) {
+		.srh { height: 200vh; }
+
+		.srh__divider { width: 1px; }
+
+		.srh__kicker {
+			font-size: 0.64rem;
+			letter-spacing: 2.2px;
+		}
+
+		.srh__title {
+			font-size: clamp(2.2rem, 12vw, 3.2rem);
+		}
+
+		.srh__subtitle {
+			font-size: 0.88rem;
+			line-height: 1.5;
+		}
+
+		.srh__label {
+			font-size: clamp(1.4rem, 9vw, 2.2rem);
+			bottom: 7%;
+		}
+	}
+
+	/* Small mobile */
+	@media (max-width: 420px) {
+		.srh { height: 190vh; }
+
+		.srh__content {
+			width: min(92%, 360px);
+			padding: 0.8rem;
+		}
+
+		.srh__kicker {
+			font-size: 0.58rem;
+			letter-spacing: 1.8px;
+		}
+
+		.srh__subtitle { font-size: 0.82rem; }
+	}
+
+	/* Reduced motion — skip scroll animation, show content immediately */
+	@media (prefers-reduced-motion: reduce) {
+		.srh { height: 100vh; }
+
+		.srh__content {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+</style>
+
+<script>
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	let splitCleanup: (() => void) | undefined;
+
+	function initSplitReveal() {
+		if (splitCleanup) {
+			splitCleanup();
+			splitCleanup = undefined;
+		}
+
+		const section = document.querySelector<HTMLElement>('[data-split-reveal]');
+		if (!section) return;
+
+		ScrollTrigger.getById('split-reveal')?.kill(true);
+
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const isMobile  = window.matchMedia('(max-width: 640px)').matches;
+		const isTablet  = window.matchMedia('(min-width: 641px) and (max-width: 1024px)').matches;
+
+		const left    = section.querySelector<HTMLElement>('[data-panel-left]');
+		const right   = section.querySelector<HTMLElement>('[data-panel-right]');
+		const divider = section.querySelector<HTMLElement>('[data-divider]');
+		const content = section.querySelector<HTMLElement>('[data-content]');
+		const stage   = section.querySelector<HTMLElement>('.srh__stage');
+
+		if (!left || !right || !divider || !content || !stage) return;
+
+		splitCleanup = () => {
+			ScrollTrigger.getById('split-reveal')?.kill(true);
+			gsap.killTweensOf([left, right, divider, content]);
+			gsap.set([left, right, divider, content], { clearProps: 'all' });
+		};
+
+		if (prefersReducedMotion) {
+			gsap.set(content, { autoAlpha: 1, y: 0 });
+			gsap.set(divider, { autoAlpha: 0 });
+			return;
+		}
+
+		const panelOffset = isMobile ? 7  : isTablet ? 9  : 12;
+		const revealAt    = isMobile ? 0.35 : isTablet ? 0.38 : 0.42;
+
+		gsap.set([left, right], { clipPath: 'inset(0 0 0 0)', xPercent: 0 });
+		gsap.set(divider,  { autoAlpha: 1, scaleY: 1, transformOrigin: '50% 50%' });
+		gsap.set(content,  { autoAlpha: 0, y: isMobile ? 6 : isTablet ? 8 : 12 });
+
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				id: 'split-reveal',
+				trigger: section,
+				start: 'top top',
+				end:   'bottom bottom',
+				scrub: 0.9,
+				pin:   stage,
+				anticipatePin: 1,
+				invalidateOnRefresh: true,
+			},
+		});
+
+		tl
+			.to(left,    { xPercent: -panelOffset, clipPath: 'inset(0 100% 0 0)', ease: 'none' }, 0)
+			.to(right,   { xPercent:  panelOffset, clipPath: 'inset(0 0 0 100%)', ease: 'none' }, 0)
+			.to(divider, { autoAlpha: 0, scaleY: 0.35, ease: 'none' }, 0.12)
+			.to(content, { autoAlpha: 1, y: isMobile ? -4 : isTablet ? -6 : -8, ease: 'none' }, revealAt);
+
+		requestAnimationFrame(() => ScrollTrigger.refresh(true));
+	}
+
+	document.addEventListener('astro:page-load', () => {
+		if (!document.querySelector('[data-split-reveal]')) return;
+		requestAnimationFrame(() => requestAnimationFrame(initSplitReveal));
+	});
+
+	document.addEventListener('astro:before-swap', () => {
+		splitCleanup?.();
+		splitCleanup = undefined;
+	});
+</script>

@@ -1,0 +1,71 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+
+const { title = 'Luxury Rosettes' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<link
+			rel="preconnect"
+			href="https://fonts.googleapis.com"
+		/>
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin="anonymous"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<ClientRouter fallback="none" />
+	</head>
+	<body>
+		<slot />
+		<script>
+			import { initLenis, destroyLenis } from '../scripts/lenis';
+
+			// Fade out before navigation, then load the new page
+			document.addEventListener('astro:before-preparation', (e) => {
+				const originalLoader = e.loader;
+				e.loader = async () => {
+					document.documentElement.classList.add('page-leaving');
+					await new Promise((r) => setTimeout(r, 280));
+					destroyLenis();
+					await originalLoader();
+				};
+			});
+
+			// After DOM swap — scroll to top, start hidden, then fade in
+			document.addEventListener('astro:after-swap', () => {
+				window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+				document.documentElement.classList.add('page-leaving');
+				requestAnimationFrame(() => {
+					document.documentElement.classList.remove('page-leaving');
+				});
+			});
+
+			// Cleanup Lenis + menu state during swap (safety fallback)
+			document.addEventListener('astro:before-swap', () => {
+				destroyLenis();
+				document.body.classList.remove('no-scroll');
+				document.body.style.paddingRight = '';
+				const nav = document.getElementById('floatingNav');
+				if (nav) nav.style.paddingRight = '';
+			});
+
+			document.addEventListener('astro:page-load', () => {
+				initLenis();
+			});
+		</script>
+	</body>
+</html>
